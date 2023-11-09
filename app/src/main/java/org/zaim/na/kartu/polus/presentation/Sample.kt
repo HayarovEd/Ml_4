@@ -91,13 +91,11 @@ fun Sample(
         }
 
         is StatusApplication.Offer -> {
-            /*OfferScreen(
+            OfferScreen(
                 elementOffer = (state.value.statusApplication as StatusApplication.Offer).elementOffer,
                 baseState = (state.value.statusApplication as StatusApplication.Offer).currentBaseState,
                 onEvent = viewModel::onEvent,
-                launcherMultiplePermissions = launcherMultiplePermissions,
-                context = context
-            )*/
+            )
         }
 
         is StatusApplication.Web -> {

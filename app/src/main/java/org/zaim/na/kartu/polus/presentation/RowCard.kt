@@ -1,4 +1,3 @@
-/*
 package org.zaim.na.kartu.polus.presentation
 
 import androidx.compose.foundation.Image
@@ -10,8 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import hed.hotzaem.tophh.R
-import hed.hotzaem.tophh.data.VALUE_ONE
+import org.zaim.na.kartu.polus.R
+import org.zaim.na.kartu.polus.data.VALUE_ONE
 
 @Composable
 fun RowCard(
@@ -65,4 +64,4 @@ fun RowCard(
                 contentDescription = "")
         }
     }
-}*/
+}
