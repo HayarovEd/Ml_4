@@ -45,6 +45,7 @@ import org.zaim.na.kartu.polus.ui.theme.yellow
 @Composable
 fun UserDataScreen(
     modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
     onClick: () -> Unit
 ) {
     val name = remember { mutableStateOf("") }
@@ -84,6 +85,9 @@ fun UserDataScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
+                modifier = modifier.clickable(
+                    onClick = onBackClick
+                ),
                 imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_30),
                 contentDescription = "",
                 tint = white
