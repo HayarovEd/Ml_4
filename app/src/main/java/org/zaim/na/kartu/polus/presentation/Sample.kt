@@ -44,7 +44,7 @@ fun Sample(
     else if (!state.value.debitCards.isNullOrEmpty()) TypeCard.CardDebit else TypeCard.CardInstallment
     when (val currentState = state.value.statusApplication) {
         is StatusApplication.Connect -> {
-            /*ConnectScreen(
+            ConnectScreen(
                 baseState = currentState.baseState,
                 db = state.value.dbData!!,
                 onClickCards = { onEvent(
@@ -76,7 +76,7 @@ fun Sample(
                 launcherMultiplePermissions = launcherMultiplePermissions,
                 context = context,
                 onEvent = viewModel::onEvent
-            )*/
+            )
         }
 
         StatusApplication.Loading -> {

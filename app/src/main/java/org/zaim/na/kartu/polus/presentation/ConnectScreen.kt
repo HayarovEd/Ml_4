@@ -1,4 +1,4 @@
-/*package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polus.presentation
 
 import android.content.Context
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -29,20 +29,14 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hed.hotzaem.tophh.R
-import hed.hotzaem.tophh.domain.model.basedto.BaseDto
-import hed.hotzaem.tophh.domain.model.basedto.BaseState
-import hed.hotzaem.tophh.domain.model.basedto.BaseState.Cards
-import hed.hotzaem.tophh.domain.model.basedto.BaseState.Credits
-import hed.hotzaem.tophh.domain.model.basedto.CardsCredit
-import hed.hotzaem.tophh.domain.model.basedto.CardsDebit
-import hed.hotzaem.tophh.domain.model.basedto.CardsInstallment
-import hed.hotzaem.tophh.gola.ui.theme.baseBackground
-import hed.hotzaem.tophh.gola.ui.theme.black
-import hed.hotzaem.tophh.gola.ui.theme.green
-import hed.hotzaem.tophh.gola.ui.theme.lightGray
-import org.zaim.na.kartu.polus.presentation.Credits
-import org.zaim.na.kartu.polus.presentation.Loans
+import org.zaim.na.kartu.polus.R
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseDto
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsInstallment
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.white
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,8 +62,8 @@ fun ConnectScreen(
     instalmentCardLazyState: LazyListState,
 ) {
     val title = when (baseState) {
-        is Cards -> stringResource(id = R.string.cards)
-        Credits -> stringResource(id = R.string.credits)
+        is BaseState.Cards -> stringResource(id = R.string.cards)
+        BaseState.Credits -> stringResource(id = R.string.credits)
         BaseState.Loans -> stringResource(id = R.string.loans)
     }
     Scaffold(
@@ -86,10 +80,10 @@ fun ConnectScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            color = black,
-                            fontStyle = FontStyle(R.font.soyuz_grotesk_bold),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
+                            color = white,
+                            fontStyle = FontStyle(R.font.open_sans),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight(600),
                             text = title
                         )
                         /*IconButton(onClick = onClickRules) {
