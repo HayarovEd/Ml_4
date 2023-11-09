@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">Ml_4</string>
+    <string name="app_name">Моментальный займ онлайн</string>
+    //Mock
+    <string name="get_loan">Получить займ</string>
+    <string name="amount_loan">Сумма займа</string>
+    <string name="max_amount">100 000 ₽</string>
+    <string name="individual_conditions">Индивидуальные условия</string>
+    <string name="offers_from">Предложения от 0% в день</string>
+    <string name="more_per_day">Более 0% в день</string>
+    <string name="bad_history">Одобрение с плохой кредитной историей</string>
+    <string name="checkout">Оформить</string>
+    <string name="hide_filter">Сбросить фильтр</string>
+    <string name="back">Назад</string>
+    <string name="name">ФИО</string>
+    <string name="phone">Телефон</string>
+    <string name="email">E-mail</string>
+    <string name="police_1">Согласен</string>
+    <string name="police_2">с политикой конфеденциальности.</string>
+    <string name="send">Отправить</string>
+    <string name="excellent">Отлично!</string>
+    <string name="meet">Вам назначена\nвстреча 22.12.2023\nв 18:30</string>
 </resources>
