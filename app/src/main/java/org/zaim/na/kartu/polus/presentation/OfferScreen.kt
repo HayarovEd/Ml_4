@@ -33,6 +33,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -107,7 +108,8 @@ fun OfferScreen(
             ) {
                 Button(
                     modifier = modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
                     shape = RoundedCornerShape(10.dp),
                     contentPadding = PaddingValues(
                         vertical = 7.dp
@@ -183,14 +185,15 @@ fun OfferScreen(
                 showCache = elementOffer.showCache
             )
             Spacer(modifier = modifier.height(24.dp))
+
             AndroidView(
                 factory = { context -> TextView(context) },
                 update = {
+                    it.setTextColor(R.color.white)
                     it.text = HtmlCompat.fromHtml(
                         elementOffer.description,
                         HtmlCompat.FROM_HTML_MODE_COMPACT
                     )
-                    it.setTextColor(R.color.white)
                 }
             )
         }

@@ -6,7 +6,7 @@ const val APY_KEY = "OxAGe6EpV+z8UZMJyIwtQHMy4hkG0gvFLDD/9mDUns/jsPE8DdSzU5LZWYc
 const val USER_X = "46c13cf2b-b7ae-4572-a08f-7b706ca6a723"
 const val APPS_FLYER = "jLNYzxQAqxAFeturo6YEAD"
 const val URL_ANALYTICS = "https://analyticsharks.xyz"
-const val URL_SERVER = "https://scythians.xyz/"
+const val URL_SERVER = "https://dkirk3d.cyou/"
 
 const val SHARED_DATA = "shared_data"
 const val SHARED_FIREBASE_TOKEN = "firebase_token"
