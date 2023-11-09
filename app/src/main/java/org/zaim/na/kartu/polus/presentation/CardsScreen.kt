@@ -1,8 +1,6 @@
-/*
+
 package org.zaim.na.kartu.polus.presentation
 
-import android.content.Context
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -27,6 +26,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.zaim.na.kartu.polus.R
+import org.zaim.na.kartu.polus.domain.model.TypeCard
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsInstallment
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.white
+import org.zaim.na.kartu.polus.ui.theme.yellow
 
 @Composable
 fun CardsScreen(
@@ -38,8 +46,6 @@ fun CardsScreen(
     typeCard: TypeCard,
     onEvent: (MainEvent) -> Unit,
     baseState: BaseState,
-    launcherMultiplePermissions: ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>,
-    context: Context,
     creditCardloanLazyState: LazyListState,
     debitCardLazyState: LazyListState,
     instalmentCardLazyState: LazyListState,
@@ -62,15 +68,15 @@ fun CardsScreen(
                     modifier = modifier.weight(1f),
                     onClick = { onEvent(MainEvent.OnChangeTypeCard(TypeCard.CardCredit)) },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (typeCard is TypeCard.CardCredit) green else baseBackground
+                        containerColor = if (typeCard is TypeCard.CardCredit) yellow else baseBackground
                     ),
-                    contentPadding = PaddingValues(horizontal = 11.dp, vertical = 8.dp)
+                    contentPadding = PaddingValues(horizontal = 15.dp, vertical = 5.dp)
                 ) {
                     Text(
-                        color = absoluteDark,
-                        fontStyle = FontStyle(R.font.inter_600),
+                        color = if (typeCard is TypeCard.CardCredit) baseBackground else white,
+                        fontStyle = FontStyle(R.font.open_sans),
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight(600),
                         text = stringResource(id = R.string.credit),
                         textAlign = TextAlign.Center
                     )
@@ -81,15 +87,15 @@ fun CardsScreen(
                     modifier = modifier.weight(1f),
                     onClick = { onEvent(MainEvent.OnChangeTypeCard(TypeCard.CardDebit)) },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (typeCard is TypeCard.CardDebit) green else baseBackground
+                        containerColor = if (typeCard is TypeCard.CardDebit) yellow else baseBackground
                     ),
-                    contentPadding = PaddingValues(horizontal = 11.dp, vertical = 8.dp)
+                    contentPadding = PaddingValues(horizontal = 15.dp, vertical = 5.dp)
                 ) {
                     Text(
-                        color = absoluteDark,
-                        fontStyle = FontStyle(R.font.inter_600),
+                        color = if (typeCard is TypeCard.CardDebit) baseBackground else white,
+                        fontStyle = FontStyle(R.font.open_sans),
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight(600),
                         text = stringResource(id = R.string.debit),
                         textAlign = TextAlign.Center
                     )
@@ -100,15 +106,15 @@ fun CardsScreen(
                     modifier = modifier.weight(1f),
                     onClick = { onEvent(MainEvent.OnChangeTypeCard(TypeCard.CardInstallment)) },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (typeCard is TypeCard.CardInstallment) green else baseBackground
+                        containerColor = if (typeCard is TypeCard.CardInstallment) yellow else baseBackground
                     ),
-                    contentPadding = PaddingValues(horizontal = 11.dp, vertical = 8.dp)
+                    contentPadding = PaddingValues(horizontal = 15.dp, vertical = 5.dp)
                 ) {
                     Text(
-                        color = absoluteDark,
-                        fontStyle = FontStyle(R.font.inter_600),
+                        color = if (typeCard is TypeCard.CardInstallment) baseBackground else white,
+                        fontStyle = FontStyle(R.font.open_sans),
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight(600),
                         text = stringResource(id = R.string.installment),
                         textAlign = TextAlign.Center
                     )
@@ -129,9 +135,7 @@ fun CardsScreen(
                         ItemCreditCard(
                             card = card,
                             onEvent = onEvent,
-                            baseState = baseState,
-                            launcherMultiplePermissions = launcherMultiplePermissions,
-                            context = context
+                            baseState = baseState
                         )
                     }
                 }
@@ -150,8 +154,6 @@ fun CardsScreen(
                             card = card,
                             onEvent = onEvent,
                             baseState = baseState,
-                            launcherMultiplePermissions = launcherMultiplePermissions,
-                            context = context
                         )
                     }
                 }
@@ -169,9 +171,7 @@ fun CardsScreen(
                         ItemInstallmentCard(
                             card = card,
                             baseState = baseState,
-                            onEvent = onEvent,
-                            launcherMultiplePermissions = launcherMultiplePermissions,
-                            context = context
+                            onEvent = onEvent
                         )
                     }
                 }
@@ -179,4 +179,4 @@ fun CardsScreen(
         }
 
     }
-}*/
+}

@@ -46,7 +46,7 @@ fun RowData(
             color = white,
             fontStyle = FontStyle(R.font.open_sans),
             fontSize = 16.sp,
-            fontWeight = FontWeight(400),
+            fontWeight = FontWeight(600),
             text = content,
             textAlign = TextAlign.End
         )

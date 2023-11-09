@@ -1,9 +1,7 @@
-/*
+
 package org.zaim.na.kartu.polus.presentation
 
 import android.annotation.SuppressLint
-import android.content.Context
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,12 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hed.hotzaem.tophh.domain.model.basedto.BaseState
-import hed.hotzaem.tophh.domain.model.basedto.Loan
-import hed.hotzaem.tophh.gola.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.Loan
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
@@ -28,8 +27,6 @@ fun Loans(
     loans: List<Loan>,
     onEvent: (MainEvent) -> Unit,
     baseState: BaseState,
-    launcherMultiplePermissions: ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>,
-    context: Context,
     loanLazyState: LazyListState,
 ) {
     Column(
@@ -50,10 +47,8 @@ fun Loans(
                     loan = loan,
                     onEvent = onEvent,
                     baseState = baseState,
-                    launcherMultiplePermissions = launcherMultiplePermissions,
-                    context = context
                 )
             }
         }
     }
-}*/
+}

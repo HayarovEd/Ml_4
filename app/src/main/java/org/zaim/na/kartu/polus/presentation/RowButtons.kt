@@ -1,9 +1,10 @@
-/*
+
 package org.zaim.na.kartu.polus.presentation
 
 import android.content.Context
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,15 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import hed.hotzaem.tophh.R
-import hed.hotzaem.tophh.domain.model.ElementOffer
-import hed.hotzaem.tophh.domain.model.StatusApplication
-import hed.hotzaem.tophh.domain.model.basedto.BaseState
-import hed.hotzaem.tophh.gola.ui.theme.absoluteDark
-import hed.hotzaem.tophh.gola.ui.theme.baseBackground
-import hed.hotzaem.tophh.gola.ui.theme.black
-import hed.hotzaem.tophh.gola.ui.theme.white
-import org.zaim.na.kartu.polus.presentation.MainEvent
+import org.zaim.na.kartu.polus.R
+import org.zaim.na.kartu.polus.domain.model.ElementOffer
+import org.zaim.na.kartu.polus.domain.model.StatusApplication
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.darkText
+import org.zaim.na.kartu.polus.ui.theme.yellow
 
 @Composable
 fun RowButtons(
@@ -57,9 +56,7 @@ fun RowButtons(
     showCache: String,
     showPercent: String,
     showTerm: String,
-    order:String,
-    launcherMultiplePermissions: ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>,
-    context: Context
+    order:String
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -69,7 +66,8 @@ fun RowButtons(
         Box(
             modifier = modifier
                 .weight(1f)
-                .clip(shape = RoundedCornerShape(16.dp))
+                .border(width = 3.dp, color = yellow, shape = RoundedCornerShape(10.dp))
+                .clip(shape = RoundedCornerShape(10.dp))
                 .background(color = baseBackground)
                 .clickable(onClick = {
                     onEvent(
@@ -99,12 +97,12 @@ fun RowButtons(
                         )
                     )
                 })
-                .padding(vertical = 14.dp)
+                .padding(vertical = 8.dp)
         ) {
             Icon(
                 modifier = modifier.align(alignment = Alignment.Center),
                 imageVector = ImageVector.vectorResource(id = R.drawable.carbon_overflow),
-                tint = absoluteDark,
+                tint = yellow,
                 contentDescription = ""
             )
         }
@@ -112,8 +110,8 @@ fun RowButtons(
         Box(
             modifier = modifier
                 .weight(3f)
-                .clip(shape = RoundedCornerShape(16.dp))
-                .background(color = black)
+                .clip(shape = RoundedCornerShape(10.dp))
+                .background(color = yellow)
                 .clickable(onClick = {
                     onEvent(
                         MainEvent.OnGoToWeb(
@@ -122,17 +120,17 @@ fun RowButtons(
                         )
                     )
                 })
-                .padding(vertical = 16.dp)
+                .padding(vertical = 8.dp)
         ) {
             Text(
                 modifier = modifier.align(alignment = Alignment.Center),
-                color = white,
-                fontStyle = FontStyle(R.font.soyuz_grotesk_bold),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Normal,
+                color = darkText,
+                fontStyle = FontStyle(R.font.open_sans),
+                fontSize = 20.sp,
+                fontWeight = FontWeight(600),
                 text = titleOffer,
                 textAlign = TextAlign.Center
             )
         }
     }
-}*/
+}

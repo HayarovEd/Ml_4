@@ -32,11 +32,15 @@ import androidx.compose.ui.unit.sp
 import org.zaim.na.kartu.polus.R
 import org.zaim.na.kartu.polus.domain.model.basedto.BaseDto
 import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Cards
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Credits
 import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
 import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
 import org.zaim.na.kartu.polus.domain.model.basedto.CardsInstallment
 import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.grey
 import org.zaim.na.kartu.polus.ui.theme.white
+import org.zaim.na.kartu.polus.ui.theme.yellow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,8 +52,6 @@ fun ConnectScreen(
     creditCards: List<CardsCredit>,
     debitCards: List<CardsDebit>,
     installmentCards: List<CardsInstallment>,
-    launcherMultiplePermissions: ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>,
-    context: Context,
     onEvent: (MainEvent) -> Unit,
     onClickLoans: () -> Unit,
     onClickCards: () -> Unit,
@@ -62,8 +64,8 @@ fun ConnectScreen(
     instalmentCardLazyState: LazyListState,
 ) {
     val title = when (baseState) {
-        is BaseState.Cards -> stringResource(id = R.string.cards)
-        BaseState.Credits -> stringResource(id = R.string.credits)
+        is Cards -> stringResource(id = R.string.cards)
+        Credits -> stringResource(id = R.string.credits)
         BaseState.Loans -> stringResource(id = R.string.loans)
     }
     Scaffold(
@@ -101,7 +103,7 @@ fun ConnectScreen(
         },
         bottomBar = {
             BottomAppBar(
-                containerColor = black
+                containerColor = baseBackground
             ) {
                 Row(
                     modifier = modifier
@@ -110,25 +112,25 @@ fun ConnectScreen(
                 ) {
                     if (!db.loans.isNullOrEmpty()) {
                         ItemBottomBar(
-                            color = if (baseState is BaseState.Loans) green else lightGray,
+                            color = if (baseState is BaseState.Loans) yellow else grey,
                             content = stringResource(id = R.string.loans),
-                            icon = ImageVector.vectorResource(id = R.drawable.ic_bank),
+                            icon = ImageVector.vectorResource(id = R.drawable.cashback),
                             onClick = onClickLoans
                         )
                     }
                     if (!db.cards.isNullOrEmpty()) {
                         ItemBottomBar(
-                            color = if (baseState is Cards) green else lightGray,
+                            color = if (baseState is Cards) yellow else grey,
                             content = stringResource(id = R.string.cards),
-                            icon = ImageVector.vectorResource(id = R.drawable.ic_card),
+                            icon = ImageVector.vectorResource(id = R.drawable.card),
                             onClick = onClickCards
                         )
                     }
                     if (!db.credits.isNullOrEmpty()) {
                         ItemBottomBar(
-                            color = if (baseState is Credits) green else lightGray,
+                            color = if (baseState is Credits) yellow else grey,
                             content = stringResource(id = R.string.credits),
-                            icon = ImageVector.vectorResource(id = R.drawable.ic_credit),
+                            icon = ImageVector.vectorResource(id = R.drawable.credit),
                             onClick = onClickCredits
                         )
                     }
@@ -147,8 +149,6 @@ fun ConnectScreen(
                     typeCard = type.typeCard,
                     onEvent = onEvent,
                     baseState = baseState,
-                    launcherMultiplePermissions = launcherMultiplePermissions,
-                    context = context,
                     creditCardloanLazyState = creditCardloanLazyState,
                     debitCardLazyState = debitCardLazyState,
                     instalmentCardLazyState = instalmentCardLazyState,
@@ -161,8 +161,6 @@ fun ConnectScreen(
                     credits = db.credits,
                     onEvent = onEvent,
                     baseState = baseState,
-                    launcherMultiplePermissions = launcherMultiplePermissions,
-                    context = context,
                     creditLazyState = creditLazyState
                 )
             }
@@ -173,8 +171,6 @@ fun ConnectScreen(
                     loans = db.loans,
                     onEvent = onEvent,
                     baseState = baseState,
-                    launcherMultiplePermissions = launcherMultiplePermissions,
-                    context = context,
                     loanLazyState = loanLazyState
                 )
             }
@@ -201,10 +197,10 @@ fun ItemBottomBar(
         }
         Text(
             color = color,
-            fontStyle = FontStyle(R.font.onest_400),
-            fontSize = 11.sp,
-            fontWeight = FontWeight.Normal,
+            fontStyle = FontStyle(R.font.open_sans),
+            fontSize = 15.sp,
+            fontWeight = FontWeight(600),
             text = content
         )
     }
-}*/
+}

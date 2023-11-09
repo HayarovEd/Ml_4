@@ -1,9 +1,10 @@
-/*
+
 package org.zaim.na.kartu.polus.presentation
 
 import android.content.Context
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,35 +27,31 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import hed.hotzaem.tophh.R
-import hed.hotzaem.tophh.data.VALUE_ONE
-import hed.hotzaem.tophh.domain.model.ElementOffer
-import hed.hotzaem.tophh.domain.model.StatusApplication
-import hed.hotzaem.tophh.domain.model.basedto.BaseState
-import hed.hotzaem.tophh.domain.model.basedto.CardsDebit
-import hed.hotzaem.tophh.gola.ui.theme.black
-import hed.hotzaem.tophh.gola.ui.theme.white
+import org.zaim.na.kartu.polus.R
+import org.zaim.na.kartu.polus.data.VALUE_ONE
+import org.zaim.na.kartu.polus.domain.model.ElementOffer
+import org.zaim.na.kartu.polus.domain.model.StatusApplication
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.grey
+import org.zaim.na.kartu.polus.ui.theme.white
 
 @Composable
 fun ItemDebitCard(
     modifier: Modifier = Modifier,
     card: CardsDebit,
     onEvent: (MainEvent) -> Unit,
-    baseState: BaseState,
-    launcherMultiplePermissions: ManagedActivityResultLauncher<Array<String>, Map<String, @JvmSuppressWildcards Boolean>>,
-    context: Context
+    baseState: BaseState
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .border(width = 3.dp, color = grey, shape = RoundedCornerShape(15.dp))
             .padding(end = 4.dp, bottom = 4.dp)
-            .shadow(
-                elevation = 4.dp,
-                shape = RoundedCornerShape(16.dp)
-            )
             .clip(shape = RoundedCornerShape(16.dp))
-            .background(color = white)
-            .padding(16.dp)
+            .background(color = baseBackground)
+            .padding(15.dp)
     ) {
         AsyncImage(
             modifier = modifier
@@ -92,22 +89,29 @@ fun ItemDebitCard(
             contentDescription = ""
         )
         Spacer(modifier = modifier.height(13.dp))
-        Row(
+        Text(
+            color = white,
+            fontStyle = FontStyle(R.font.open_sans),
+            fontSize = 19.sp,
+            fontWeight = FontWeight(700),
+            text = card.name
+        )
+        /*Row(
             modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                color = black,
-                fontStyle = FontStyle(R.font.soyuz_grotesk_bold),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
+                color = white,
+                fontStyle = FontStyle(R.font.open_sans),
+                fontSize = 19.sp,
+                fontWeight = FontWeight(700),
                 text = card.name
             )
             Rang(
                 rang = card.score
             )
-        }
+        }*/
         Spacer(modifier = modifier.height(13.dp))
         RowData(
             title = stringResource(id = R.string.amount),
@@ -156,10 +160,7 @@ fun ItemDebitCard(
             showCache = card.showCash,
             showPercent = card.hidePercentFields,
             showTerm = card.hideTermFields,
-            order = card.order,
-            launcherMultiplePermissions = launcherMultiplePermissions,
-            context = context
+            order = card.order
         )
     }
 }
-*/
