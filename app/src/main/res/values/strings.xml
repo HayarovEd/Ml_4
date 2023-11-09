@@ -19,4 +19,10 @@
     <string name="send">Отправить</string>
     <string name="excellent">Отлично!</string>
     <string name="meet">Вам назначена\nвстреча 22.12.2023\nв 18:30</string>
+
+    //No Internet
+    //No Internet
+    <string name="not_connect">Нет соединения</string>
+    <string name="try_internet">Проверьте интернет-соединение\nи попробуйте ещё раз</string>
+    <string name="reconnect">Переподключиться</string>
 </resources>

@@ -19,21 +19,15 @@ import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.my.tracker.MyTracker
 import dagger.hilt.android.AndroidEntryPoint
-import org.zaim.na.kartu.polus.R
 import org.zaim.na.kartu.polus.data.APPS_FLYER
 import org.zaim.na.kartu.polus.data.LINK
 import org.zaim.na.kartu.polus.data.SHARED_APPSFLYER_INSTANCE_ID
 import org.zaim.na.kartu.polus.data.SHARED_DATA
-import java.io.File
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private lateinit var outputDirectory: File
-    private lateinit var cameraExecutor: ExecutorService
     private val viewModel: MainViewModel by viewModels()
     private val requestPermissionLauncherFireBase = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -105,28 +99,10 @@ class MainActivity : ComponentActivity() {
         AppsFlyerLib.getInstance().start(this)
         setContent {
 
-           /* Sample(
-                outputDirectory = outputDirectory,
-                executor = cameraExecutor,
+           Sample(
                 viewModel = viewModel,
-            )*/
+            )
         }
-
-        outputDirectory = getOutputDirectory()
-        cameraExecutor = Executors.newSingleThreadExecutor()
-    }
-
-    private fun getOutputDirectory(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-
-        return if (mediaDir != null && mediaDir.exists()) mediaDir else filesDir
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
     }
 
     private fun askNotificationPermission() {

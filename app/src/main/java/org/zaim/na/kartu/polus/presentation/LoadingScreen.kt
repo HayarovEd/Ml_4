@@ -1,4 +1,3 @@
-/*
 package org.zaim.na.kartu.polus.presentation
 
 import androidx.compose.foundation.background
@@ -10,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hed.hotzaem.tophh.gola.ui.theme.baseBackground
-import hed.hotzaem.tophh.gola.ui.theme.green
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
+import org.zaim.na.kartu.polus.ui.theme.yellow
 
 @Composable
 fun LoadingScreen(
@@ -25,7 +24,7 @@ fun LoadingScreen(
     ) {
         CircularProgressIndicator(
             modifier = modifier.size(100.dp),
-            color = green
+            color = yellow
         )
     }
-}*/
+}

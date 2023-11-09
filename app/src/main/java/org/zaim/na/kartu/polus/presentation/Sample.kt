@@ -1,4 +1,3 @@
-/*
 package org.zaim.na.kartu.polus.presentation
 
 import android.os.Build
@@ -11,23 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import java.io.File
-import java.util.concurrent.ExecutorService
-import hed.hotzaem.tophh.domain.model.StatusApplication
-import hed.hotzaem.tophh.domain.model.StatusApplication.Connect
-import hed.hotzaem.tophh.domain.model.StatusApplication.Loading
-import hed.hotzaem.tophh.domain.model.StatusApplication.Mock
-import hed.hotzaem.tophh.domain.model.TypeCard
-import hed.hotzaem.tophh.domain.model.basedto.BaseState
-import hed.hotzaem.tophh.ui.presentation_v1.BaseScreen
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
+import org.zaim.na.kartu.polus.domain.model.TypeCard
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.presentation.mock.BaseScreen
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun Sample(
     viewModel: MainViewModel = hiltViewModel(),
-    outputDirectory: File,
-    executor: ExecutorService
 ) {
 
     val state = viewModel.state.collectAsState()
@@ -53,7 +44,7 @@ fun Sample(
     else if (!state.value.debitCards.isNullOrEmpty()) TypeCard.CardDebit else TypeCard.CardInstallment
     when (val currentState = state.value.statusApplication) {
         is StatusApplication.Connect -> {
-            ConnectScreen(
+            /*ConnectScreen(
                 baseState = currentState.baseState,
                 db = state.value.dbData!!,
                 onClickCards = { onEvent(
@@ -85,7 +76,7 @@ fun Sample(
                 launcherMultiplePermissions = launcherMultiplePermissions,
                 context = context,
                 onEvent = viewModel::onEvent
-            )
+            )*/
         }
 
         StatusApplication.Loading -> {
@@ -93,28 +84,20 @@ fun Sample(
         }
 
         is StatusApplication.Mock -> {
-            BaseScreen(
-                outputDirectory = outputDirectory,
-                executor = executor,
-            )
+            BaseScreen()
         }
 
         is StatusApplication.Info -> {
-            PrivacyScreen(
-                content = state.value.dbData?.appConfig?.privacyPolicyHtml?:"",
-                baseState = (state.value.statusApplication as StatusApplication.Info).currentBaseState,
-                onEvent = viewModel::onEvent
-            )
         }
 
         is StatusApplication.Offer -> {
-            OfferScreen(
+            /*OfferScreen(
                 elementOffer = (state.value.statusApplication as StatusApplication.Offer).elementOffer,
                 baseState = (state.value.statusApplication as StatusApplication.Offer).currentBaseState,
                 onEvent = viewModel::onEvent,
                 launcherMultiplePermissions = launcherMultiplePermissions,
                 context = context
-            )
+            )*/
         }
 
         is StatusApplication.Web -> {
@@ -130,4 +113,4 @@ fun Sample(
         }
     }
 
-}*/
+}
