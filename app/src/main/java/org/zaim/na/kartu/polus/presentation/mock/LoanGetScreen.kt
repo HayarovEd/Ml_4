@@ -33,7 +33,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.zaim.na.kartu.polus.R
@@ -43,10 +42,10 @@ import org.zaim.na.kartu.polus.ui.theme.semiWhite
 import org.zaim.na.kartu.polus.ui.theme.white
 import org.zaim.na.kartu.polus.ui.theme.yellow
 
-@Preview
 @Composable
 fun LoanGetScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     val sliderPosition = remember { mutableFloatStateOf(0f) }
     val choose = remember {
@@ -142,19 +141,19 @@ fun LoanGetScreen(
         ItemCondition(
             title = stringResource(id = R.string.offers_from),
             color = if (choose.value == ChooseState.UntilZeroPerDay) yellow else semiWhite,
-            onClick = { choose.value = ChooseState.UntilZeroPerDay}
+            onClick = { choose.value = ChooseState.UntilZeroPerDay }
         )
         Spacer(modifier = modifier.height(15.dp))
         ItemCondition(
             title = stringResource(id = R.string.more_per_day),
             color = if (choose.value == ChooseState.MoreZeroPerDay) yellow else semiWhite,
-            onClick = { choose.value = ChooseState.MoreZeroPerDay}
+            onClick = { choose.value = ChooseState.MoreZeroPerDay }
         )
         Spacer(modifier = modifier.height(15.dp))
         ItemCondition(
             title = stringResource(id = R.string.bad_history),
             color = if (choose.value == ChooseState.BadHistory) yellow else semiWhite,
-            onClick = { choose.value = ChooseState.BadHistory}
+            onClick = { choose.value = ChooseState.BadHistory }
         )
         Spacer(modifier = modifier.height(30.dp))
         Button(
@@ -164,14 +163,15 @@ fun LoanGetScreen(
             contentPadding = PaddingValues(
                 vertical = 7.dp
             ),
-            enabled = sliderPosition.floatValue!=0f&&choose.value!=ChooseState.NoChoice,
+            enabled = sliderPosition.floatValue != 0f && choose.value != ChooseState.NoChoice,
             colors = ButtonDefaults.buttonColors(
                 containerColor = yellow,
                 contentColor = darkText,
                 disabledContainerColor = grey,
                 disabledContentColor = white
             ),
-            onClick = { /*TODO*/ }) {
+            onClick = onClick
+        ) {
             Text(
                 text = stringResource(id = R.string.checkout),
                 style = TextStyle(

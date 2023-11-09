@@ -14,8 +14,8 @@
     <string name="name">ФИО</string>
     <string name="phone">Телефон</string>
     <string name="email">E-mail</string>
-    <string name="police_1">Согласен</string>
-    <string name="police_2">с политикой конфеденциальности.</string>
+    <string name="police_1">Согласен с</string>
+    <string name="police_2">политикой конфеденциальности.</string>
     <string name="send">Отправить</string>
     <string name="excellent">Отлично!</string>
     <string name="meet">Вам назначена\nвстреча 22.12.2023\nв 18:30</string>
