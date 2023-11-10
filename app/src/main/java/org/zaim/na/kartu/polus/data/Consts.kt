@@ -2,7 +2,7 @@ package org.zaim.na.kartu.polus.data
 
 const val APP_METRICA = "e4778642-000a-4c51-a50b-8ff9857357cd"
 const val MY_TRACKER = "62431162665329410770"
-const val APY_KEY = "OxAGe6EpV+z8UZMJyIwtQHMy4hkG0gvFLDD/9mDUns/jsPE8DdSzU5LZWYc3RbmXrgwKEaZylIHpLXOlVBeaQozwC3BrPS+/25gcj/cwVfSBk70bCEewIqlC4VAU1jzxpQHBf/BgF6S6rolOQMGsnDZYW3ymrksz9J/RYjh3kfZopF3MpsFkk42uD07pZ3aq\n"
+const val APY_KEY = "OxAGe6EpV+z8UZMJyIwtQHMy4hkG0gvFLDD/9mDUns/jsPE8DdSzU5LZWYc3RbmXrgwKEaZylIHpLXOlVBeaQozwC3BrPS+/25gcj/cwVfSBk70bCEewIqlC4VAU1jzxpQHBf/BgF6S6rolOQMGsnDZYW3ymrksz9J/RYjh3kfZopF3MpsFkk42uD07pZ3aq"
 const val USER_X = "46c13cf2b-b7ae-4572-a08f-7b706ca6a723"
 const val APPS_FLYER = "jLNYzxQAqxAFeturo6YEAD"
 const val URL_ANALYTICS = "https://analyticsharks.xyz"
