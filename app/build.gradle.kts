@@ -23,21 +23,21 @@ android {
         }
     }
 
-    /*signingConfigs {
+    signingConfigs {
         getByName("debug") {
-            storeFile = file("id_441.keystore")
-            keyAlias = "hed.hotzaem.tophh"
+            storeFile = file("ID521.keystore")
+            keyAlias = "org.zaim.na.kartu.polus"
             storePassword = "mypass"
             keyPassword = "mypass"
         }
         create("release") {
-            keyAlias = "hed.hotzaem.tophh"
+            keyAlias = "org.zaim.na.kartu.polus"
             keyPassword = "mypass"
-            storeFile = file("id_441.keystore")
+            storeFile = file("ID521.keystore")
             storePassword = "mypass"
             enableV2Signing = true
         }
-    }*/
+    }
 
     buildTypes {
         release {
@@ -46,10 +46,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            //signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
-           // signingConfig = signingConfigs.getByName("debug")
+           signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -109,7 +109,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-
+    //UserX
+    implementation(files("libs\\UserX-4.2.2.aar"))
 
     //AppMetrica
     implementation ("com.yandex.android:mobmetricalib:5.3.0")
