@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -187,6 +188,11 @@ fun OfferScreen(
             Spacer(modifier = modifier.height(24.dp))
 
             AndroidView(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clip(shape= RoundedCornerShape(5.dp))
+                    .background(color = white)
+                    .padding(5.dp),
                 factory = { context -> TextView(context) },
                 update = {
                     it.setTextColor(R.color.white)
