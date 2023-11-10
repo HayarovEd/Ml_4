@@ -278,12 +278,14 @@ class MainViewModel @Inject constructor(
             delay(2000)
             Log.d("ASDFGH", "_yandexMetrikaDeviceId sub1 ${_yandexMetrikaDeviceId.value}")
             Log.d("ASDFGH", "_appsFlayerInstanceId sub1 ${_appsFlayerInstanceId.value}")
+            Log.d("ASDFGH", "gaid ${_state.value.gaid}")
+            Log.d("ASDFGH", "instanceIdMyTracker ${_state.value.instanceIdMyTracker}")
             when (val result = repositoryAnalytic.getSub1(
                 applicationToken = APY_KEY,
                 userId = _state.value.gaid ?: "",
                 appMetricaId = _yandexMetrikaDeviceId.value,
                 appsflyer = _appsFlayerInstanceId.value,
-                firebaseToken = _state.value.fireBaseToken ?: "",
+                firebaseToken = "NA",
                 myTrackerId = _state.value.instanceIdMyTracker ?: ""
             )) {
                 is Resource.Error -> {
@@ -293,6 +295,7 @@ class MainViewModel @Inject constructor(
                         .updateStateUI()
                 }
                 is Resource.Success -> {
+                    Log.d("FGHJJ", "result sub1 ${result.data}")
                     _state.value.copy(
                         affsub1Unswer = result.data?.affsub1?:""
                     )
