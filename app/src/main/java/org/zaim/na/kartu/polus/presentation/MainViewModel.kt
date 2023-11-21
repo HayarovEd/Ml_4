@@ -33,8 +33,17 @@ import org.zaim.na.kartu.polus.domain.RepositoryServer
 import org.zaim.na.kartu.polus.domain.Service
 import org.zaim.na.kartu.polus.domain.SharedKepper
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Connect
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Info
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Loading
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Mock
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.NoConnect
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Offer
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.Web
+import org.zaim.na.kartu.polus.domain.model.StatusApplication.WebPrimary
 import org.zaim.na.kartu.polus.domain.model.TypeCard
 import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Cards
 import org.zaim.na.kartu.polus.domain.model.basedto.Card
 import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
 import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
@@ -216,24 +225,26 @@ class MainViewModel @Inject constructor(
                             "${mainEvent.urlOffer}&aff_sub1=${_state.value.affsub1Unswer}&aff_sub2=${_state.value.affsub2Unswer}&aff_sub3=${_state.value.affsub3Unswer}&aff_sub5=${_state.value.affsub5Unswer}"
                         Log.d("ASDFGH", "url $completeUrl")
                         when (val lastState = _lastState.value) {
-                            is StatusApplication.Connect -> {
+                            is Connect -> {
                                 sendGoToOffer(
                                     url = completeUrl,
                                     parameter = OFFER_WALL
                                 )
                                 when (lastState.baseState) {
-                                    is BaseState.Cards -> {
+                                    is Cards -> {
                                         sendFromListOffers(
                                             url = completeUrl,
                                             parameter = CARDS
                                         )
                                     }
+
                                     BaseState.Credits -> {
                                         sendFromListOffers(
                                             url = completeUrl,
                                             parameter = CREDITS
                                         )
                                     }
+
                                     BaseState.Loans -> {
                                         sendFromListOffers(
                                             url = completeUrl,
@@ -242,17 +253,20 @@ class MainViewModel @Inject constructor(
                                     }
                                 }
                             }
-                            is StatusApplication.Info -> {}
-                            StatusApplication.Loading -> {}
-                            StatusApplication.Mock -> {}
-                            StatusApplication.NoConnect -> {}
-                            is StatusApplication.Offer -> {
+
+                            is Info -> {}
+                            Loading -> {}
+                            Mock -> {}
+                            NoConnect -> {}
+                            is Offer -> {
                                 sendGoToOffer(
                                     url = completeUrl,
                                     parameter = MORE_DETAILS
                                 )
                             }
-                            is StatusApplication.Web -> { }
+
+                            is Web -> {}
+                            is WebPrimary -> TODO()
                         }
                         _state.value.copy(
                             statusApplication = StatusApplication.Web(
@@ -464,7 +478,7 @@ class MainViewModel @Inject constructor(
                         content = mapOf(BACKEND_UNAVAILABLE to currentGaid)
                     )
                     _state.value.copy(
-                        statusApplication = StatusApplication.Mock,
+                        statusApplication = Mock,
                     )
                         .updateStateUI()
                 }
@@ -473,18 +487,21 @@ class MainViewModel @Inject constructor(
                     collectCards(db.data?.cards)
                     //Log.d("ASDFGH", "db data ${db.data}")
                     if (_link.value.isBlank()||_link.value==" ") {
-                        val statusApplication = if (!db.data?.loans.isNullOrEmpty()) {
-                            StatusApplication.Connect(BaseState.Loans)
-                        } else if (!db.data?.credits.isNullOrEmpty()) {
-                            StatusApplication.Connect(BaseState.Credits)
-                        } else {
-                            val typeCard = if (_state.value.creditCards.isNotEmpty()) {
-                                TypeCard.CardCredit
-                            } else if (_state.value.debitCards.isNotEmpty()) {
-                                TypeCard.CardDebit
-                            } else TypeCard.CardInstallment
-                            StatusApplication.Connect(BaseState.Cards(typeCard))
-                        }
+                        val statusApplication =
+                            if (!db.data?.appConfig?.urlPrimary.isNullOrBlank()) {
+                                WebPrimary(db.data?.appConfig?.urlPrimary!!)
+                            } else if (!db.data?.loans.isNullOrEmpty()) {
+                                Connect(BaseState.Loans)
+                            } else if (!db.data?.credits.isNullOrEmpty()) {
+                                Connect(BaseState.Credits)
+                            } else {
+                                val typeCard = if (_state.value.creditCards.isNotEmpty()) {
+                                    TypeCard.CardCredit
+                                } else if (_state.value.debitCards.isNotEmpty()) {
+                                    TypeCard.CardDebit
+                                } else TypeCard.CardInstallment
+                                Connect(BaseState.Cards(typeCard))
+                            }
                         _state.value.copy(
                             statusApplication = statusApplication,
                             dbData = db.data,

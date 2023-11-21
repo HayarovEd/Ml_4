@@ -22,5 +22,9 @@ sealed class StatusApplication {
         val offerName: String
     ): StatusApplication()
 
+    class WebPrimary (
+        val url: String
+    ): StatusApplication()
+
     object NoConnect: StatusApplication()
 }

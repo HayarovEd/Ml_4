@@ -23,46 +23,26 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.FileProvider
-import org.zaim.na.kartu.polus.R
-import org.zaim.na.kartu.polus.ui.theme.baseBackground
-import org.zaim.na.kartu.polus.ui.theme.white
 import java.io.File
 import java.io.IOException
+import org.zaim.na.kartu.polus.ui.theme.baseBackground
 
 private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
 private var imageOutputFileUri: Uri? = null
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WebViewScreen(
+fun WebViewScreenPrimary(
     modifier: Modifier = Modifier,
     url: String,
-    offerName: String,
     onEvent: (MainEvent) -> Unit,
 ) {
     val activityResultLauncher = rememberLauncherForActivityResult(
@@ -80,50 +60,14 @@ fun WebViewScreen(
     }
     val context = LocalContext.current
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-    Scaffold (
-        modifier = modifier
-            .fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = baseBackground
-                ),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = {
-                            onEvent(MainEvent.Reconnect)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_30),
-                                tint = white,
-                                contentDescription = ""
-                            )
-                        }
-                        Spacer(modifier = modifier.width(16.dp))
-                        Text(
-                            color = white,
-                            fontStyle = FontStyle(R.font.open_sans),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Normal,
-                            text = offerName
-                        )
-                    }
-                }
-            )
-        },
-    ) {valuePaddings->
-        Box (modifier = modifier
-            .fillMaxSize()
-            .background(color = baseBackground)
-            .padding(valuePaddings),
-        ){
-            AndroidView(
-                modifier = modifier.padding(4.dp),
-                factory = {
+    Box (modifier = modifier
+        .fillMaxSize()
+        .background(color = baseBackground)
+        .padding(15.dp),
+    ){
+        AndroidView(
+            modifier = modifier.padding(4.dp),
+            factory = {
                 WebView(it).apply {
                     layoutParams = ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -193,7 +137,6 @@ fun WebViewScreen(
             }, update = {
                 it.loadUrl(url)
             })
-        }
     }
 }
 

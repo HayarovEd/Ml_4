@@ -14,8 +14,8 @@ android {
         applicationId = "org.zaim.na.kartu.polus"
         minSdk = 21
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -99,9 +99,9 @@ dependencies {
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.4")
 
     //Dagger
-    implementation ("com.google.dagger:hilt-android:2.47")
-    annotationProcessor ("com.google.dagger:hilt-compiler:2.47")
-    kapt ("com.google.dagger:hilt-compiler:2.47")
+    implementation ("com.google.dagger:hilt-android:2.48")
+    annotationProcessor ("com.google.dagger:hilt-compiler:2.48")
+    kapt ("com.google.dagger:hilt-compiler:2.48")
     implementation ("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     //retrofit

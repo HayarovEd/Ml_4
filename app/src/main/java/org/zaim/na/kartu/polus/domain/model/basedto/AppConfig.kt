@@ -15,5 +15,11 @@ data class AppConfig(
     @SerializedName("show_phone_authentication")
     val showPhoneAuthentication: String,
     @SerializedName("user_term_html")
-    val userTermHtml: String
+    val userTermHtml: String,
+    @SerializedName("extra_field_0")
+    val urlPrimary: String?,
+    @SerializedName("extra_field_1")
+    val namePrimary: String?,
+    @SerializedName("extra_field_2")
+    val url: String?,
 )
