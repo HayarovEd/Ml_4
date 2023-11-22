@@ -127,6 +127,11 @@ dependencies {
     implementation ("com.huawei.hms:ads-identifier:3.4.62.300")
     implementation ("com.huawei.hms:ads-installreferrer:3.4.62.300")
 
+    implementation ("io.github.boguszpawlowski.composecalendar:composecalendar:1.1.1")
+
+    // separate artifact with utilities for working with kotlinx-datetime
+    implementation ("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.1.1")
+
 }
 
 
