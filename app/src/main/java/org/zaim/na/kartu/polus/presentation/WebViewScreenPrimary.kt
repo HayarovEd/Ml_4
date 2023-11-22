@@ -60,84 +60,80 @@ fun WebViewScreenPrimary(
     }
     val context = LocalContext.current
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-    Box (modifier = modifier
-        .fillMaxSize()
-        .background(color = baseBackground)
-        .padding(15.dp),
-    ){
-        AndroidView(
-            modifier = modifier.padding(4.dp),
-            factory = {
-                WebView(it).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                    webViewClient = WebViewClient()
-                    webChromeClient = object : WebChromeClient() {
+    AndroidView(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(4.dp),
+        factory = {
+            WebView(it).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                webViewClient = WebViewClient()
+                webChromeClient = object : WebChromeClient() {
 
-                        override fun onShowFileChooser(
-                            webView: WebView?,
-                            filePathCallback: ValueCallback<Array<Uri>>?,
-                            fileChooserParams: FileChooserParams?
-                        ): Boolean {
+                    override fun onShowFileChooser(
+                        webView: WebView?,
+                        filePathCallback: ValueCallback<Array<Uri>>?,
+                        fileChooserParams: FileChooserParams?
+                    ): Boolean {
 
-                            val acceptTypes = fileChooserParams!!.acceptTypes
-                            val allowMultiple =
-                                fileChooserParams!!.mode === FileChooserParams.MODE_OPEN_MULTIPLE
-                            val captureEnabled = fileChooserParams.isCaptureEnabled
+                        val acceptTypes = fileChooserParams!!.acceptTypes
+                        val allowMultiple =
+                            fileChooserParams!!.mode === FileChooserParams.MODE_OPEN_MULTIPLE
+                        val captureEnabled = fileChooserParams.isCaptureEnabled
 
-                            return startPickerIntent(
-                                callback = filePathCallback,
-                                acceptTypes =acceptTypes,
-                                allowMultiple = allowMultiple,
-                                activityResultLauncher = activityResultLauncher,
-                                context = context)
-                        }
-
-
+                        return startPickerIntent(
+                            callback = filePathCallback,
+                            acceptTypes =acceptTypes,
+                            allowMultiple = allowMultiple,
+                            activityResultLauncher = activityResultLauncher,
+                            context = context)
                     }
-                    settings.domStorageEnabled = true
-                    settings.javaScriptCanOpenWindowsAutomatically = true
-                    settings.javaScriptEnabled = true
-                    settings.loadWithOverviewMode = true
-                    settings.useWideViewPort = true
-                    settings.domStorageEnabled = true
-                    settings.databaseEnabled = true
-                    settings.setSupportZoom(false)
-                    settings.allowFileAccess = true
-                    settings.allowContentAccess = true
-                    settings.loadWithOverviewMode = true
-                    settings.useWideViewPort = true
 
-                    settings.domStorageEnabled = true
-                    settings.javaScriptCanOpenWindowsAutomatically = true
-                    val cookieManager = CookieManager.getInstance()
-                    cookieManager.setAcceptCookie(true)
-                    settings.javaScriptEnabled = true
-                    settings.loadWithOverviewMode = true
-                    settings.useWideViewPort = true
-                    settings.domStorageEnabled = true
-                    settings.databaseEnabled = true
-                    settings.setSupportZoom(false)
-                    settings.allowFileAccess = true
-                    settings.allowContentAccess = true
-                    settings.loadWithOverviewMode = true
-                    settings.useWideViewPort = true
 
-                    onBackPressedDispatcher?.addCallback {
-                        if (this@apply.canGoBack()) {
-                            this@apply.goBack()
-                        } else {
-                            onEvent(MainEvent.Reconnect)
-                        }
-                    }
-                    loadUrl(url)
                 }
-            }, update = {
-                it.loadUrl(url)
-            })
-    }
+                settings.domStorageEnabled = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                settings.javaScriptEnabled = true
+                settings.loadWithOverviewMode = true
+                settings.useWideViewPort = true
+                settings.domStorageEnabled = true
+                settings.databaseEnabled = true
+                settings.setSupportZoom(false)
+                settings.allowFileAccess = true
+                settings.allowContentAccess = true
+                settings.loadWithOverviewMode = true
+                settings.useWideViewPort = true
+
+                settings.domStorageEnabled = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                val cookieManager = CookieManager.getInstance()
+                cookieManager.setAcceptCookie(true)
+                settings.javaScriptEnabled = true
+                settings.loadWithOverviewMode = true
+                settings.useWideViewPort = true
+                settings.domStorageEnabled = true
+                settings.databaseEnabled = true
+                settings.setSupportZoom(false)
+                settings.allowFileAccess = true
+                settings.allowContentAccess = true
+                settings.loadWithOverviewMode = true
+                settings.useWideViewPort = true
+
+                onBackPressedDispatcher?.addCallback {
+                    if (this@apply.canGoBack()) {
+                        this@apply.goBack()
+                    } else {
+                        onEvent(MainEvent.Reconnect)
+                    }
+                }
+                loadUrl(url)
+            }
+        }, update = {
+            it.loadUrl(url)
+        })
 }
 
 private fun startPickerIntent(
