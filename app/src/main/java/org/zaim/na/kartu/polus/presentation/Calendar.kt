@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,9 +26,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.boguszpawlowski.composecalendar.CalendarState
 import io.github.boguszpawlowski.composecalendar.SelectableCalendar
+import io.github.boguszpawlowski.composecalendar.day.DayState
+import io.github.boguszpawlowski.composecalendar.day.DefaultDay
+import io.github.boguszpawlowski.composecalendar.rememberCalendarState
+import io.github.boguszpawlowski.composecalendar.rememberSelectableCalendarState
+import io.github.boguszpawlowski.composecalendar.selection.DynamicSelectionState
+import io.github.boguszpawlowski.composecalendar.selection.SelectionMode
 import org.zaim.na.kartu.polus.ui.theme.color1
 import org.zaim.na.kartu.polus.ui.theme.white
+import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
@@ -34,7 +44,16 @@ import org.zaim.na.kartu.polus.ui.theme.white
 fun Calendar(
     modifier: Modifier = Modifier
 ) {
+
+    val selectedBeginDate = remember {
+        mutableStateOf(LocalDate.now())
+    }
     val back = Brush.linearGradient(colors = listOf(color1, white))
+    val calendarState: CalendarState<DynamicSelectionState> = rememberSelectableCalendarState(
+        initialSelectionMode = SelectionMode.Period,
+        initialSelection = listOf(selectedBeginDate.value)
+    )
+
     Column (
         modifier = modifier
             .fillMaxSize()
@@ -66,27 +85,8 @@ fun Calendar(
                 )
                 .background(brush = back)
                 .padding(16.dp),
-            dayContent = {
-                Box (
-                    modifier
-                        .clickable {
-
-                        }
-                        .padding(vertical = 10.dp, horizontal = 13.dp)
-                ){
-                    Text(
-                        modifier = modifier.align(alignment = Alignment.Center),
-                        text = it.date.dayOfMonth.toString(),
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            lineHeight = 24.sp,
-                            //fontFamily = FontFamily(Font(R.font.raleway)),
-                            fontWeight = FontWeight(400),
-                            textAlign = TextAlign.Center,
-                        )
-                    )
-                }
-            }
+            calendarState = calendarState,
         )
+
     }
 }
