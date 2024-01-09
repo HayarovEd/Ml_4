@@ -125,6 +125,10 @@ fun Sample(
                 url = currentState.url,
                 onEvent = viewModel::onEvent)
         }
+
+        StatusApplication.EmptyData -> {
+            EmptyDataScreen()
+        }
     }
 
 }

@@ -37,5 +37,7 @@
     <string name="installment">Рассрочка</string>
     <string name="rules">Пользовательское соглашение</string>
 
+    <string name="error_100">Ошибка 100</string>
+
 
 </resources>

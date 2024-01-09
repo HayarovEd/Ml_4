@@ -14,7 +14,7 @@ android {
         applicationId = "org.zaim.na.kartu.polus"
         minSdk = 21
         targetSdk = 34
-        versionCode = 2
+        versionCode = 3
         versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

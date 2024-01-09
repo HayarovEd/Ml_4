@@ -19,6 +19,8 @@ import org.zaim.na.kartu.polus.data.APY_KEY
 import org.zaim.na.kartu.polus.data.BACKEND_UNAVAILABLE
 import org.zaim.na.kartu.polus.data.CARDS
 import org.zaim.na.kartu.polus.data.CREDITS
+import org.zaim.na.kartu.polus.data.EVENT_100
+import org.zaim.na.kartu.polus.data.EVENT_101
 import org.zaim.na.kartu.polus.data.EXTERNAL_LINK
 import org.zaim.na.kartu.polus.data.ITEM_ID
 import org.zaim.na.kartu.polus.data.LOANS
@@ -61,7 +63,7 @@ class MainViewModel @Inject constructor(
     private var _state = MutableStateFlow(MainState())
     val state = _state.asStateFlow()
 
-    private var _lastState = MutableStateFlow<StatusApplication>(StatusApplication.Loading)
+    private var _lastState = MutableStateFlow<StatusApplication>(Loading)
     private val _myTracker = MutableStateFlow("")
     private val _appsFlayer = MutableStateFlow("")
     private val _link = MutableStateFlow("")
@@ -153,8 +155,17 @@ class MainViewModel @Inject constructor(
             getSub5()
             loadDbData()
         } else {
+            val sendingData = mapOf(
+                ITEM_ID to EVENT_101,
+            )
+            YandexMetrica.reportEvent(EVENT_101, sendingData)
+            MyTracker.trackEvent(EVENT_101)
+            service.sendAppsFlyerEvent(
+                key = EVENT_101,
+                content = sendingData
+            )
             _state.value.copy(
-                statusApplication = StatusApplication.NoConnect
+                statusApplication = NoConnect
             )
                 .updateStateUI()
         }
@@ -170,7 +181,7 @@ class MainViewModel @Inject constructor(
         when (mainEvent) {
             Reconnect -> {
                 if (service.checkedInternetConnection()) {
-                    if (_lastState.value !is StatusApplication.Loading) {
+                    if (_lastState.value !is Loading) {
                         _state.value.copy(
                             statusApplication = _lastState.value
                         )
@@ -179,8 +190,17 @@ class MainViewModel @Inject constructor(
                         loadData()
                     }
                 } else {
+                    val sendingData = mapOf(
+                        ITEM_ID to EVENT_101,
+                    )
+                    YandexMetrica.reportEvent(EVENT_101, sendingData)
+                    MyTracker.trackEvent(EVENT_101)
+                    service.sendAppsFlyerEvent(
+                        key = EVENT_101,
+                        content = sendingData
+                    )
                     _state.value.copy(
-                        statusApplication = StatusApplication.NoConnect,
+                        statusApplication = NoConnect,
                     )
                         .updateStateUI()
                 }
@@ -188,14 +208,14 @@ class MainViewModel @Inject constructor(
 
             is OnChangeBaseState -> {
                 _state.value.copy(
-                    statusApplication = StatusApplication.Connect(mainEvent.baseState),
+                    statusApplication = Connect(mainEvent.baseState),
                 )
                     .updateStateUI()
             }
 
             is MainEvent.OnChangeTypeCard -> {
                 _state.value.copy(
-                    statusApplication = StatusApplication.Connect(
+                    statusApplication = Connect(
                         BaseState.Cards(
                             mainEvent.typeCard
                         )
@@ -214,7 +234,7 @@ class MainViewModel @Inject constructor(
             is MainEvent.OnGoToWeb -> {
                 _lastState.value = _state.value.statusApplication
                 _state.value.copy(
-                    statusApplication = StatusApplication.Loading,
+                    statusApplication = Loading,
                 )
                     .updateStateUI()
                 if (service.checkedInternetConnection()) {
@@ -266,18 +286,28 @@ class MainViewModel @Inject constructor(
                             }
 
                             is Web -> {}
-                            is WebPrimary -> TODO()
+                            is WebPrimary -> {}
+                            StatusApplication.EmptyData -> {}
                         }
                         _state.value.copy(
-                            statusApplication = StatusApplication.Web(
+                            statusApplication = Web(
                                 url = completeUrl,
                                 offerName = mainEvent.nameOffer),
                         )
                             .updateStateUI()
                     }
                 } else {
+                    val sendingData = mapOf(
+                        ITEM_ID to EVENT_101,
+                    )
+                    YandexMetrica.reportEvent(EVENT_101, sendingData)
+                    MyTracker.trackEvent(EVENT_101)
+                    service.sendAppsFlyerEvent(
+                        key = EVENT_101,
+                        content = sendingData
+                    )
                     _state.value.copy(
-                        statusApplication = StatusApplication.NoConnect,
+                        statusApplication = NoConnect,
                     )
                         .updateStateUI()
                 }
@@ -487,21 +517,20 @@ class MainViewModel @Inject constructor(
                     collectCards(db.data?.cards)
                     //Log.d("ASDFGH", "db data ${db.data}")
                     if (_link.value.isBlank()||_link.value==" ") {
-                        val statusApplication =
-                            if (!db.data?.appConfig?.urlPrimary.isNullOrBlank()) {
-                                WebPrimary(db.data?.appConfig?.urlPrimary!!)
-                            } else if (!db.data?.loans.isNullOrEmpty()) {
-                                Connect(BaseState.Loans)
-                            } else if (!db.data?.credits.isNullOrEmpty()) {
-                                Connect(BaseState.Credits)
-                            } else {
-                                val typeCard = if (_state.value.creditCards.isNotEmpty()) {
-                                    TypeCard.CardCredit
-                                } else if (_state.value.debitCards.isNotEmpty()) {
-                                    TypeCard.CardDebit
-                                } else TypeCard.CardInstallment
-                                Connect(BaseState.Cards(typeCard))
-                            }
+                        val statusApplication = if (!db.data?.loans.isNullOrEmpty()) {
+                            Connect(BaseState.Loans)
+                        } else  {
+                            val sendingData = mapOf(
+                                ITEM_ID to EVENT_100,
+                            )
+                            YandexMetrica.reportEvent(EVENT_100, sendingData)
+                            MyTracker.trackEvent(EVENT_100)
+                            service.sendAppsFlyerEvent(
+                                key = EVENT_100,
+                                content = sendingData
+                            )
+                            StatusApplication.EmptyData
+                        }
                         _state.value.copy(
                             statusApplication = statusApplication,
                             dbData = db.data,
