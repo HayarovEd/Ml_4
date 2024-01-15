@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Моментальный займ онлайн</string>
+    <string name="app_name">Страна Экспресс</string>
     //Mock
     <string name="get_loan">Получить займ</string>
     <string name="amount_loan">Сумма займа</string>

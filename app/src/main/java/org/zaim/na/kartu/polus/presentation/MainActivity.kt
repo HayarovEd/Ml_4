@@ -49,8 +49,6 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        askNotificationPermission()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         intent.extras?.let {
             for (key in it.keySet()) {
@@ -104,17 +102,6 @@ class MainActivity : ComponentActivity() {
            Sample(
                 viewModel = viewModel,
             )
-        }
-    }
-
-    private fun askNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-            } else {
-                requestPermissionLauncherFireBase.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
         }
     }
 

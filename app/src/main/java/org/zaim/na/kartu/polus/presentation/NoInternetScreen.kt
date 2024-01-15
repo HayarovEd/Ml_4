@@ -26,11 +26,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.zaim.na.kartu.polus.R
-import org.zaim.na.kartu.polus.presentation.MainEvent.Reconnect
 import org.zaim.na.kartu.polus.ui.theme.baseBackground
 import org.zaim.na.kartu.polus.ui.theme.darkText
 import org.zaim.na.kartu.polus.ui.theme.grey
@@ -40,7 +38,7 @@ import org.zaim.na.kartu.polus.ui.theme.yellow
 @Composable
 fun NoInternetScreen(
     modifier: Modifier = Modifier,
-    onEvent: (MainEvent) -> Unit
+    viewModel: MainViewModel
 ) {
     Box (
         modifier = modifier
@@ -90,7 +88,7 @@ fun NoInternetScreen(
                 disabledContainerColor = grey,
                 disabledContentColor = white
             ),
-            onClick = { onEvent(Reconnect) }
+            onClick = { viewModel.reconnect() }
         ) {
             Text(
                 text = stringResource(id = R.string.reconnect),
@@ -102,9 +100,4 @@ fun NoInternetScreen(
             )
         }
     }
-}
-@Preview
-@Composable
-fun SampleNoInternetScreen() {
-    NoInternetScreen(onEvent = {})
 }

@@ -62,8 +62,6 @@ private var imageOutputFileUri: Uri? = null
 fun WebViewScreen(
     modifier: Modifier = Modifier,
     url: String,
-    offerName: String,
-    onEvent: (MainEvent) -> Unit,
 ) {
     val activityResultLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
@@ -83,38 +81,6 @@ fun WebViewScreen(
     Scaffold (
         modifier = modifier
             .fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = baseBackground
-                ),
-                title = {
-                    Row(
-                        modifier = modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = {
-                            onEvent(MainEvent.Reconnect)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.baseline_arrow_back_30),
-                                tint = white,
-                                contentDescription = ""
-                            )
-                        }
-                        Spacer(modifier = modifier.width(16.dp))
-                        Text(
-                            color = white,
-                            fontStyle = FontStyle(R.font.open_sans),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Normal,
-                            text = offerName
-                        )
-                    }
-                }
-            )
-        },
     ) {valuePaddings->
         Box (modifier = modifier
             .fillMaxSize()
@@ -184,8 +150,6 @@ fun WebViewScreen(
                     onBackPressedDispatcher?.addCallback {
                         if (this@apply.canGoBack()) {
                             this@apply.goBack()
-                        } else {
-                            onEvent(MainEvent.Reconnect)
                         }
                     }
                     loadUrl(url)
