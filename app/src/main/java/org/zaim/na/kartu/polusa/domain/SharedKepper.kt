@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.domain
+package org.zaim.na.kartu.polusa.domain
 
 interface SharedKepper {
 

@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -20,10 +20,10 @@ import com.appsflyer.AppsFlyerLib
 import com.google.gson.Gson
 import com.my.tracker.MyTracker
 import dagger.hilt.android.AndroidEntryPoint
-import org.zaim.na.kartu.polus.data.APPS_FLYER
-import org.zaim.na.kartu.polus.data.LINK
-import org.zaim.na.kartu.polus.data.SHARED_APPSFLYER_INSTANCE_ID
-import org.zaim.na.kartu.polus.data.SHARED_DATA
+import org.zaim.na.kartu.polusa.data.APPS_FLYER
+import org.zaim.na.kartu.polusa.data.LINK
+import org.zaim.na.kartu.polusa.data.SHARED_APPSFLYER_INSTANCE_ID
+import org.zaim.na.kartu.polusa.data.SHARED_DATA
 
 
 @AndroidEntryPoint

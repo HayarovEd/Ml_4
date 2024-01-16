@@ -3,19 +3,18 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id ("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
-    id ("com.huawei.agconnect")
 }
 
 android {
-    namespace = "org.zaim.na.kartu.polus"
+    namespace = "org.zaim.na.kartu.polusa"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.zaim.na.kartu.polus"
+        applicationId = "org.zaim.na.kartu.polusa"
         minSdk = 21
         targetSdk = 34
-        versionCode = 4
-        versionName = "4.0"
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -121,11 +120,7 @@ dependencies {
     //Appsflyer
     implementation ("com.appsflyer:af-android-sdk:6.12.2")
 
-    //HMS
-    implementation ("com.huawei.hms:push:6.11.0.300")
-    implementation ("com.huawei.hms:hmscoreinstaller:6.7.0.300")
-    implementation ("com.huawei.hms:ads-identifier:3.4.62.300")
-    implementation ("com.huawei.hms:ads-installreferrer:3.4.62.300")
+
 
     implementation ("io.github.boguszpawlowski.composecalendar:composecalendar:1.1.1")
 

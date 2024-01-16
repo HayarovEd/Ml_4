@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
 
 import android.util.Log
@@ -13,15 +13,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.zaim.na.kartu.polus.data.EVENT_101
-import org.zaim.na.kartu.polus.data.EXTERNAL_LINK
-import org.zaim.na.kartu.polus.data.ITEM_ID
-import org.zaim.na.kartu.polus.data.OFFER_WALL
-import org.zaim.na.kartu.polus.data.URL
-import org.zaim.na.kartu.polus.domain.Service
-import org.zaim.na.kartu.polus.domain.SharedKepper
-import org.zaim.na.kartu.polus.domain.model.StatusApplication.NoConnect
-import org.zaim.na.kartu.polus.domain.model.StatusApplication.Web
+import org.zaim.na.kartu.polusa.data.EVENT_101
+import org.zaim.na.kartu.polusa.data.EXTERNAL_LINK
+import org.zaim.na.kartu.polusa.data.ITEM_ID
+import org.zaim.na.kartu.polusa.data.OFFER_WALL
+import org.zaim.na.kartu.polusa.data.URL
+import org.zaim.na.kartu.polusa.domain.Service
+import org.zaim.na.kartu.polusa.domain.SharedKepper
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication.NoConnect
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication.Web
 import javax.inject.Inject
 
 @HiltViewModel
@@ -87,14 +87,6 @@ class MainViewModel @Inject constructor(
                     instanceIdMyTracker = instanceIdMyTracker
                 )
                     .updateStateUI()
-            }
-            viewModelScope.launch(Dispatchers.IO) {
-                val gaid = service.getOAID()
-                _state.value.copy(
-                    gaid = gaid,
-                )
-                    .updateStateUI()
-                delay(2000)
             }
             loadDbData()
         } else {

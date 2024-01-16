@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.ui.theme
+package org.zaim.na.kartu.polusa.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

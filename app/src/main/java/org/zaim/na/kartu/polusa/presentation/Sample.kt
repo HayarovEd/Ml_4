@@ -1,14 +1,14 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.zaim.na.kartu.polus.domain.model.StatusApplication
-import org.zaim.na.kartu.polus.domain.model.StatusApplication.Loading
-import org.zaim.na.kartu.polus.domain.model.StatusApplication.NoConnect
-import org.zaim.na.kartu.polus.domain.model.StatusApplication.Web
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication.Loading
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication.NoConnect
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication.Web
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable

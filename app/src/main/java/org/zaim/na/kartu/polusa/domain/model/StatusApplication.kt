@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.domain.model
+package org.zaim.na.kartu.polusa.domain.model
 
 
 sealed class StatusApplication {

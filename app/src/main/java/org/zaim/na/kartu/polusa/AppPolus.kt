@@ -1,13 +1,13 @@
-package org.zaim.na.kartu.polus
+package org.zaim.na.kartu.polusa
 
 import android.app.Application
 import com.my.tracker.MyTracker
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import dagger.hilt.android.HiltAndroidApp
-import org.zaim.na.kartu.polus.data.APP_METRICA
-import org.zaim.na.kartu.polus.data.MY_TRACKER
-import org.zaim.na.kartu.polus.data.USER_X
+import org.zaim.na.kartu.polusa.data.APP_METRICA
+import org.zaim.na.kartu.polusa.data.MY_TRACKER
+import org.zaim.na.kartu.polusa.data.USER_X
 import pro.userx.UserX
 
 @HiltAndroidApp

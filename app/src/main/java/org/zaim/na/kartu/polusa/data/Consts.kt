@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.data
+package org.zaim.na.kartu.polusa.data
 
 const val APP_METRICA = "e4778642-000a-4c51-a50b-8ff9857357cd"
 const val MY_TRACKER = "62431162665329410770"

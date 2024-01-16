@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.zaim.na.kartu.polus.ui.theme.baseBackground
-import org.zaim.na.kartu.polus.ui.theme.yellow
+import org.zaim.na.kartu.polusa.ui.theme.baseBackground
+import org.zaim.na.kartu.polusa.ui.theme.yellow
 
 @Composable
 fun LoadingScreen(

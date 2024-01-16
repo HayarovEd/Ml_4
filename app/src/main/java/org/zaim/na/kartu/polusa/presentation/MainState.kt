@@ -1,6 +1,6 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
-import org.zaim.na.kartu.polus.domain.model.StatusApplication
+import org.zaim.na.kartu.polusa.domain.model.StatusApplication
 
 
 data class MainState(

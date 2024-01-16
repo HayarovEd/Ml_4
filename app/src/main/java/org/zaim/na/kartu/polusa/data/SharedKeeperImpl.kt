@@ -1,8 +1,8 @@
-package org.zaim.na.kartu.polus.data
+package org.zaim.na.kartu.polusa.data
 
 import android.app.Application
 import android.content.Context
-import org.zaim.na.kartu.polus.domain.SharedKepper
+import org.zaim.na.kartu.polusa.domain.SharedKepper
 import javax.inject.Inject
 
 class SharedKeeperImpl @Inject constructor(

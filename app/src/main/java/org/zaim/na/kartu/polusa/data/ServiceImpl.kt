@@ -1,22 +1,15 @@
-package org.zaim.na.kartu.polus.data
+package org.zaim.na.kartu.polusa.data
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
 import com.appsflyer.AppsFlyerLib
-import com.huawei.hms.aaid.HmsInstanceId
-import com.huawei.hms.ads.identifier.AdvertisingIdClient
-import com.huawei.hms.common.ApiException
-import com.huawei.hms.push.HmsMessaging
 import com.my.tracker.MyTracker
 import com.yandex.metrica.AppMetricaDeviceIDListener
 import com.yandex.metrica.YandexMetrica
-import org.zaim.na.kartu.polus.domain.Service
-import java.io.IOException
+import org.zaim.na.kartu.polusa.domain.Service
 import javax.inject.Inject
 
 class ServiceImpl @Inject constructor(
@@ -24,31 +17,6 @@ class ServiceImpl @Inject constructor(
 
     //P9
     override val instanceIdMyTracker: String = MyTracker.getInstanceId(application)
-
-    override suspend fun getOAID(): String? {
-        return try {
-            val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(application)
-            Log.i("RTYUE", "adInfo:${adInfo.id}")
-            return adInfo.id
-        } catch (e: IOException) {
-            Log.i("RTYUE", "OAID IOException:$e")
-            null
-        }
-    }
-
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    override suspend fun getHmsToken() : String? {
-
-        //  val appId = AGConnectOptionsBuilder().build(application).getString("client/app_id")
-        return try {
-            val token = HmsInstanceId.getInstance(application).getToken(APP_ID_HMS, HmsMessaging.DEFAULT_TOKEN_SCOPE)
-            Log.i("RTYUE", "token:${token}")
-            return token
-        } catch (e: ApiException) {
-            Log.i("RTYUE", "HmsToken ApiException:$e")
-            null
-        }
-    }
 
 
     override fun checkedInternetConnection(): Boolean {

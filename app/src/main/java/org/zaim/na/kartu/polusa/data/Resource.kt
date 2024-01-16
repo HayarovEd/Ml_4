@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.data
+package org.zaim.na.kartu.polusa.data
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T?): Resource<T>(data)

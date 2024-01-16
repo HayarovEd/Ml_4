@@ -1,4 +1,4 @@
-package org.zaim.na.kartu.polus.presentation
+package org.zaim.na.kartu.polusa.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,12 +28,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.zaim.na.kartu.polus.R
-import org.zaim.na.kartu.polus.ui.theme.baseBackground
-import org.zaim.na.kartu.polus.ui.theme.darkText
-import org.zaim.na.kartu.polus.ui.theme.grey
-import org.zaim.na.kartu.polus.ui.theme.white
-import org.zaim.na.kartu.polus.ui.theme.yellow
+import org.zaim.na.kartu.polusa.R
+import org.zaim.na.kartu.polusa.ui.theme.baseBackground
+import org.zaim.na.kartu.polusa.ui.theme.darkText
+import org.zaim.na.kartu.polusa.ui.theme.grey
+import org.zaim.na.kartu.polusa.ui.theme.white
+import org.zaim.na.kartu.polusa.ui.theme.yellow
 
 @Composable
 fun NoInternetScreen(
