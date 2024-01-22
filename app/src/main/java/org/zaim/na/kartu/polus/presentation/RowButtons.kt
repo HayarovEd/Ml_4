@@ -61,7 +61,7 @@ fun RowButtons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
+       /* Box(
             modifier = modifier
                 .weight(1f)
                 .border(width = 3.dp, color = yellow, shape = RoundedCornerShape(10.dp))
@@ -104,10 +104,10 @@ fun RowButtons(
                 contentDescription = ""
             )
         }
-        Spacer(modifier = modifier.width(9.dp))
+        Spacer(modifier = modifier.width(9.dp))*/
         Box(
             modifier = modifier
-                .weight(3f)
+                .fillMaxWidth()
                 .clip(shape = RoundedCornerShape(10.dp))
                 .background(color = yellow)
                 .clickable(onClick = {

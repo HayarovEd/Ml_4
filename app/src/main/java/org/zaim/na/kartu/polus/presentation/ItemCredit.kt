@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -84,11 +85,13 @@ fun ItemCredit(
         )
         Spacer(modifier = modifier.height(13.dp))
         Text(
+            modifier = modifier.fillMaxWidth(),
             color = white,
             fontStyle = FontStyle(R.font.open_sans),
             fontSize = 19.sp,
             fontWeight = FontWeight(700),
-            text = credit.name
+            text = credit.name,
+            textAlign = TextAlign.Center
         )
         /*Row(
             modifier = modifier.fillMaxWidth(),
@@ -106,7 +109,7 @@ fun ItemCredit(
                 rang = credit.score
             )
         }*/
-        Spacer(modifier = modifier.height(13.dp))
+        /*Spacer(modifier = modifier.height(13.dp))
         RowData(
             title = stringResource(id = R.string.amount),
             content = credit.summPrefix +" " + credit.summMin +" " + credit.summMid +" " + credit.summMax +" " + credit.summPostfix
@@ -133,7 +136,7 @@ fun ItemCredit(
             showMir = credit.showMir,
             showQivi = credit.showQiwi,
             showCache = credit.showCash
-        )
+        )*/
         Spacer(modifier = modifier.height(13.dp))
         RowButtons(
             titleOffer = credit.orderButtonText,
