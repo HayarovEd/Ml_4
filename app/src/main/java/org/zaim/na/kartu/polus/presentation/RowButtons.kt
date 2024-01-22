@@ -1,8 +1,6 @@
 
 package org.zaim.na.kartu.polus.presentation
 
-import android.content.Context
-import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import org.zaim.na.kartu.polus.R
 import org.zaim.na.kartu.polus.domain.model.ElementOffer
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.BaseState
 import org.zaim.na.kartu.polus.ui.theme.baseBackground
 import org.zaim.na.kartu.polus.ui.theme.darkText
 import org.zaim.na.kartu.polus.ui.theme.yellow

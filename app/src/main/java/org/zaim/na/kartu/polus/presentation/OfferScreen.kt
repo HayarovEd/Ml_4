@@ -34,7 +34,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -48,7 +47,7 @@ import org.zaim.na.kartu.polus.R
 import org.zaim.na.kartu.polus.data.VALUE_ONE
 import org.zaim.na.kartu.polus.domain.model.ElementOffer
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.BaseState
 import org.zaim.na.kartu.polus.ui.theme.baseBackground
 import org.zaim.na.kartu.polus.ui.theme.darkText
 import org.zaim.na.kartu.polus.ui.theme.grey

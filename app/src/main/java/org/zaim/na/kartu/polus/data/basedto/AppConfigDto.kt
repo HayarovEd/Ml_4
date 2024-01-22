@@ -1,9 +1,9 @@
-package org.zaim.na.kartu.polus.domain.model.basedto
+package org.zaim.na.kartu.polus.data.basedto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class AppConfig(
+data class AppConfigDto(
     @SerializedName("privacy_policy_html")
     val privacyPolicyHtml: String,
     @SerializedName("show_calculator_item")
@@ -15,11 +15,5 @@ data class AppConfig(
     @SerializedName("show_phone_authentication")
     val showPhoneAuthentication: String,
     @SerializedName("user_term_html")
-    val userTermHtml: String,
-    @SerializedName("extra_field_0")
-    val urlPrimary: String?,
-    @SerializedName("extra_field_1")
-    val namePrimary: String?,
-    @SerializedName("extra_field_2")
-    val url: String?,
+    val userTermHtml: String
 )

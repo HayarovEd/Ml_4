@@ -1,73 +1,37 @@
 package org.zaim.na.kartu.polus.presentation
 
-import android.content.Context
-import androidx.activity.compose.ManagedActivityResultLauncher
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.zaim.na.kartu.polus.R
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseDto
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Cards
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Credits
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsInstallment
-import org.zaim.na.kartu.polus.ui.theme.baseBackground
-import org.zaim.na.kartu.polus.ui.theme.grey
-import org.zaim.na.kartu.polus.ui.theme.white
-import org.zaim.na.kartu.polus.ui.theme.yellow
+import org.zaim.na.kartu.polus.domain.model.BaseDb
+import org.zaim.na.kartu.polus.domain.model.BaseState
+import org.zaim.na.kartu.polus.domain.model.BaseState.Credits
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConnectScreen(
     modifier: Modifier = Modifier,
-    db: BaseDto,
+    db: BaseDb,
     baseState: BaseState,
-    creditCards: List<CardsCredit>,
-    debitCards: List<CardsDebit>,
-    installmentCards: List<CardsInstallment>,
     onEvent: (MainEvent) -> Unit,
-    onClickLoans: () -> Unit,
-    onClickCards: () -> Unit,
-    onClickCredits: () -> Unit,
-    onClickRules: () -> Unit,
-    loanLazyState: LazyListState,
     creditLazyState: LazyListState,
-    creditCardloanLazyState: LazyListState,
-    debitCardLazyState: LazyListState,
-    instalmentCardLazyState: LazyListState,
 ) {
-    val title = when (baseState) {
-        is Cards -> stringResource(id = R.string.cards)
-        Credits -> stringResource(id = R.string.credits)
-        BaseState.Loans -> stringResource(id = R.string.loans)
-    }
     Scaffold(
         modifier = modifier
             .fillMaxSize(),
@@ -140,21 +104,6 @@ fun ConnectScreen(
         }*/
     ) { valuePaddings ->
         when (val type = baseState) {
-            is Cards -> {
-                CardsScreen(
-                    valuePaddings = valuePaddings,
-                    creditCards = creditCards,
-                    debitCards = debitCards,
-                    installmentCards = installmentCards,
-                    typeCard = type.typeCard,
-                    onEvent = onEvent,
-                    baseState = baseState,
-                    creditCardloanLazyState = creditCardloanLazyState,
-                    debitCardLazyState = debitCardLazyState,
-                    instalmentCardLazyState = instalmentCardLazyState,
-                )
-            }
-
             Credits -> {
                 Credits(
                     valuePaddings = valuePaddings,
@@ -162,16 +111,6 @@ fun ConnectScreen(
                     onEvent = onEvent,
                     baseState = baseState,
                     creditLazyState = creditLazyState
-                )
-            }
-
-            BaseState.Loans -> {
-                Loans(
-                    valuePaddings = valuePaddings,
-                    loans = db.loans,
-                    onEvent = onEvent,
-                    baseState = baseState,
-                    loanLazyState = loanLazyState
                 )
             }
         }

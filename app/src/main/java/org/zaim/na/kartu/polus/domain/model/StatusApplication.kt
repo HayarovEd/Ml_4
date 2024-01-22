@@ -1,7 +1,5 @@
 package org.zaim.na.kartu.polus.domain.model
 
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
-
 sealed class StatusApplication {
     object Loading: StatusApplication()
     object Mock : StatusApplication()

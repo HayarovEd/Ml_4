@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.my.tracker.MyTracker
 import com.yandex.metrica.YandexMetrica
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,23 +16,21 @@ import kotlinx.coroutines.launch
 import org.zaim.na.kartu.polus.data.APP_METRICA
 import org.zaim.na.kartu.polus.data.APY_KEY
 import org.zaim.na.kartu.polus.data.BACKEND_UNAVAILABLE
-import org.zaim.na.kartu.polus.data.CARDS
 import org.zaim.na.kartu.polus.data.CREDITS
 import org.zaim.na.kartu.polus.data.EVENT_100
 import org.zaim.na.kartu.polus.data.EVENT_101
 import org.zaim.na.kartu.polus.data.EXTERNAL_LINK
 import org.zaim.na.kartu.polus.data.ITEM_ID
-import org.zaim.na.kartu.polus.data.LOANS
 import org.zaim.na.kartu.polus.data.MORE_DETAILS
 import org.zaim.na.kartu.polus.data.OFFER_WALL
 import org.zaim.na.kartu.polus.data.REQUEST_DB
 import org.zaim.na.kartu.polus.data.Resource
 import org.zaim.na.kartu.polus.data.URL
-import org.zaim.na.kartu.polus.data.setStatusByPush
 import org.zaim.na.kartu.polus.domain.RepositoryAnalytic
 import org.zaim.na.kartu.polus.domain.RepositoryServer
 import org.zaim.na.kartu.polus.domain.Service
 import org.zaim.na.kartu.polus.domain.SharedKepper
+import org.zaim.na.kartu.polus.domain.model.BaseState
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Connect
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Info
@@ -43,15 +40,9 @@ import org.zaim.na.kartu.polus.domain.model.StatusApplication.NoConnect
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Offer
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Web
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.WebPrimary
-import org.zaim.na.kartu.polus.domain.model.TypeCard
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Cards
-import org.zaim.na.kartu.polus.domain.model.basedto.Card
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsCredit
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsDebit
-import org.zaim.na.kartu.polus.domain.model.basedto.CardsInstallment
 import org.zaim.na.kartu.polus.presentation.MainEvent.OnChangeBaseState
 import org.zaim.na.kartu.polus.presentation.MainEvent.Reconnect
+import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -213,16 +204,6 @@ class MainViewModel @Inject constructor(
                     .updateStateUI()
             }
 
-            is MainEvent.OnChangeTypeCard -> {
-                _state.value.copy(
-                    statusApplication = Connect(
-                        BaseState.Cards(
-                            mainEvent.typeCard
-                        )
-                    ),
-                )
-                    .updateStateUI()
-            }
 
             is MainEvent.OnChangeStatusApplication -> {
                 _state.value.copy(
@@ -251,24 +232,12 @@ class MainViewModel @Inject constructor(
                                     parameter = OFFER_WALL
                                 )
                                 when (lastState.baseState) {
-                                    is Cards -> {
-                                        sendFromListOffers(
-                                            url = completeUrl,
-                                            parameter = CARDS
-                                        )
-                                    }
+
 
                                     BaseState.Credits -> {
                                         sendFromListOffers(
                                             url = completeUrl,
                                             parameter = CREDITS
-                                        )
-                                    }
-
-                                    BaseState.Loans -> {
-                                        sendFromListOffers(
-                                            url = completeUrl,
-                                            parameter = LOANS
                                         )
                                     }
                                 }
@@ -514,92 +483,61 @@ class MainViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    collectCards(db.data?.cards)
-                    //Log.d("ASDFGH", "db data ${db.data}")
-                    if (_link.value.isBlank()||_link.value==" ") {
-                        val statusApplication = if (!db.data?.loans.isNullOrEmpty()) {
-                            Connect(BaseState.Loans)
-                        } else  {
-                            val sendingData = mapOf(
-                                ITEM_ID to EVENT_100,
-                            )
-                            YandexMetrica.reportEvent(EVENT_100, sendingData)
-                            MyTracker.trackEvent(EVENT_100)
-                            service.sendAppsFlyerEvent(
-                                key = EVENT_100,
-                                content = sendingData
-                            )
-                            StatusApplication.EmptyData
-                        }
+                    val statusApplication = if (!db.data?.credits.isNullOrEmpty()) {
+                        Connect(BaseState.Credits)
+                    } else  {
+                        val sendingData = mapOf(
+                            ITEM_ID to EVENT_100,
+                        )
+                        YandexMetrica.reportEvent(EVENT_100, sendingData)
+                        MyTracker.trackEvent(EVENT_100)
+                        service.sendAppsFlyerEvent(
+                            key = EVENT_100,
+                            content = sendingData
+                        )
+                        StatusApplication.EmptyData
+                    }
+                    _state.value.copy(
+                        statusApplication = statusApplication,
+                        dbData = db.data,
+                    )
+                        .updateStateUI()
+                    val sharedSub2 = sharedKeeper.getSub2()
+                    if (!sharedSub2.isNullOrBlank()) {
                         _state.value.copy(
-                            statusApplication = statusApplication,
-                            dbData = db.data,
+                            affsub2Unswer = sharedSub2
                         )
                             .updateStateUI()
-                        val sharedSub2 = sharedKeeper.getSub2()
-                        if (!sharedSub2.isNullOrBlank()) {
-                            _state.value.copy(
-                                affsub2Unswer = sharedSub2
-                            )
-                                .updateStateUI()
-                        } else {
-                            delay(2000)
-                            Log.d("ASDFGH", "myTracker view model2 -  ${_myTracker.value}")
-                            Log.d("ASDFGH", "appsFlayer view model -  ${_appsFlayer.value}")
-                            getSub2(
-                                currentAppsFlyer = _appsFlayer.value,
-                                currentMyTracker = _myTracker.value
-                            )
-                            delay(2000)
-                            val tempSub2 = if (_state.value.affsub2UnswerMT.isNotBlank()) {
-                                sharedKeeper.setSub2(_state.value.affsub2UnswerMT)
-                                _state.value.affsub2UnswerMT
-                            } else if (state.value.affsub2UnswerAF.isNotBlank()) {
-                                sharedKeeper.setSub2(_state.value.affsub2UnswerAF)
-                                _state.value.affsub2UnswerAF
-                            } else {
-                                sharedKeeper.setSub2(_state.value.affsub2UnswerEmpty)
-                                _state.value.affsub2UnswerEmpty
-                            }
-                            _state.value.copy(
-                                affsub2Unswer = tempSub2
-                            )
-                                .updateStateUI()
-                        }
                     } else {
-                        delay(1000)
-                        val statusApplication = _link.value.setStatusByPush(
-                            loans = db.data?.loans?: emptyList(),
-                            credits = db.data?.credits?: emptyList(),
+                        delay(2000)
+                        Log.d("ASDFGH", "myTracker view model2 -  ${_myTracker.value}")
+                        Log.d("ASDFGH", "appsFlayer view model -  ${_appsFlayer.value}")
+                        getSub2(
+                            currentAppsFlyer = _appsFlayer.value,
+                            currentMyTracker = _myTracker.value
                         )
+                        delay(2000)
+                        val tempSub2 = if (_state.value.affsub2UnswerMT.isNotBlank()) {
+                            sharedKeeper.setSub2(_state.value.affsub2UnswerMT)
+                            _state.value.affsub2UnswerMT
+                        } else if (state.value.affsub2UnswerAF.isNotBlank()) {
+                            sharedKeeper.setSub2(_state.value.affsub2UnswerAF)
+                            _state.value.affsub2UnswerAF
+                        } else {
+                            sharedKeeper.setSub2(_state.value.affsub2UnswerEmpty)
+                            _state.value.affsub2UnswerEmpty
+                        }
                         _state.value.copy(
-                            statusApplication = statusApplication,
-                            dbData = db.data,
+                            affsub2Unswer = tempSub2
                         )
                             .updateStateUI()
-                        delay(1000)
                     }
                 }
             }
         }
     }
 
-    private fun collectCards(allCards: List<Card>?) {
-        val creditCards = mutableListOf<CardsCredit>()
-        val debitCards = mutableListOf<CardsDebit>()
-        val installmentCards = mutableListOf<CardsInstallment>()
-        allCards?.forEach { card ->
-            creditCards.addAll(card.cardsCredit)
-            debitCards.addAll(card.cardsDebit)
-            installmentCards.addAll(card.cardsInstallment)
-        }
-        _state.value.copy(
-            creditCards = creditCards,
-            debitCards = debitCards,
-            installmentCards = installmentCards
-        )
-            .updateStateUI()
-    }
+
 
     private fun sendGoToOffer(url: String, parameter:String) {
         val sendingData = mapOf(

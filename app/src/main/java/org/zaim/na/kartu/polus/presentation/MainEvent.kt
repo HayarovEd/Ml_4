@@ -2,7 +2,7 @@ package org.zaim.na.kartu.polus.presentation
 
 import org.zaim.na.kartu.polus.domain.model.StatusApplication
 import org.zaim.na.kartu.polus.domain.model.TypeCard
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
+import org.zaim.na.kartu.polus.domain.model.BaseState
 
 
 sealed class MainEvent {
@@ -10,7 +10,6 @@ sealed class MainEvent {
 
     class OnChangeStatusApplication(val statusApplication: StatusApplication): MainEvent()
     class OnChangeBaseState(val baseState: BaseState): MainEvent()
-    class OnChangeTypeCard(val typeCard: TypeCard): MainEvent()
 
     class OnGoToWeb(
         val urlOffer: String,

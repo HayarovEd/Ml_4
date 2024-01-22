@@ -1,21 +1,19 @@
-package org.zaim.na.kartu.polus.domain.model.basedto
+package org.zaim.na.kartu.polus.data.basedto
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Loan(
+data class CreditDto(
     @SerializedName("description")
     val description: String,
-    @SerializedName("extra_field_0")
-    val extraField0: String,
-    @SerializedName("extra_field_1")
-    val extraField1: String,
     @SerializedName("hide_PercentFields")
     val hidePercentFields: String,
     @SerializedName("hide_TermFields")
     val hideTermFields: String,
     @SerializedName("id")
     val id: Int,
+    @SerializedName("isActive")
+    val isActive: String,
     @SerializedName("itemId")
     val itemId: String,
     @SerializedName("name")

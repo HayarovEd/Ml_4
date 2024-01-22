@@ -19,11 +19,6 @@ import org.zaim.na.kartu.polus.domain.model.StatusApplication.NoConnect
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Offer
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.Web
 import org.zaim.na.kartu.polus.domain.model.StatusApplication.WebPrimary
-import org.zaim.na.kartu.polus.domain.model.TypeCard
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState.Cards
-import org.zaim.na.kartu.polus.presentation.MainEvent.OnChangeBaseState
-import org.zaim.na.kartu.polus.presentation.MainEvent.OnChangeStatusApplication
 import org.zaim.na.kartu.polus.presentation.mock.BaseScreen
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -46,45 +41,14 @@ fun Sample(
             //Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
-    val loanLazyState = rememberLazyListState()
+
     val creditLazyState = rememberLazyListState()
-    val creditCardloanLazyState = rememberLazyListState()
-    val debitCardLazyState = rememberLazyListState()
-    val instalmentCardLazyState = rememberLazyListState()
-    val typeCard = if (!state.value.creditCards.isNullOrEmpty()) TypeCard.CardCredit
-    else if (!state.value.debitCards.isNullOrEmpty()) TypeCard.CardDebit else TypeCard.CardInstallment
     when (val currentState = state.value.statusApplication) {
         is Connect -> {
             ConnectScreen(
                 baseState = currentState.baseState,
                 db = state.value.dbData!!,
-                onClickCards = { onEvent(
-                    OnChangeBaseState(
-                        Cards(
-                    typeCard = typeCard
-                )
-                    )
-                ) },
-                onClickCredits = { onEvent(OnChangeBaseState(BaseState.Credits)) },
-                onClickLoans = { onEvent(OnChangeBaseState(BaseState.Loans)) },
-                onClickRules = {
-                    onEvent(
-                        OnChangeStatusApplication(
-                            Info(
-                                currentBaseState = currentState.baseState,
-                                content = state.value.dbData!!.appConfig.privacyPolicyHtml
-                            )
-                        )
-                    )
-                },
-                loanLazyState = loanLazyState,
                 creditLazyState = creditLazyState,
-                creditCardloanLazyState = creditCardloanLazyState,
-                debitCardLazyState = debitCardLazyState,
-                instalmentCardLazyState = instalmentCardLazyState,
-                creditCards = state.value.creditCards,
-                debitCards = state.value.debitCards,
-                installmentCards = state.value.installmentCards,
                 onEvent = viewModel::onEvent
             )
         }

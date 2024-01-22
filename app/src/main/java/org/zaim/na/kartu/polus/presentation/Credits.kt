@@ -14,8 +14,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.zaim.na.kartu.polus.domain.model.basedto.BaseState
-import org.zaim.na.kartu.polus.domain.model.basedto.Credit
+import org.zaim.na.kartu.polus.domain.model.BaseState
+import org.zaim.na.kartu.polus.domain.model.Credit
 import org.zaim.na.kartu.polus.ui.theme.baseBackground
 
 @Composable
