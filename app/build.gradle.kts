@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "org.zaim.na.kartu.polus"
+    namespace = "org.zaim.na.kartu.polusa"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.zaim.na.kartu.polus"
+        applicationId = "org.zaim.na.kartu.polusa"
         minSdk = 21
         targetSdk = 34
         versionCode = 3
